@@ -32,6 +32,11 @@ STR_TYPE: 'string';
 BOOL_TYPE: 'boolean';
 CHAR_TYPE: 'char';
 
+//token assignation
+ASSIGN: ':=';
+EQUAL: '=';
+EQUALS: '==';
+
 //tokens general
 NUMBER:[0-9]+; //number
 TEXT: '"' ( ~["\r\n] | '""' )* '"'; //string
