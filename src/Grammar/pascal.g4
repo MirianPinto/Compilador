@@ -8,7 +8,7 @@ PROGRAM ID SEMI_COLON
     (varBlock)?
     BEGIN
     (ID|NUMBER|TEXT|LETTERS)*
-    END
+    END DOT EOF
     ;
 
 //declarations of variables
@@ -31,20 +31,34 @@ INT_TYPE: 'integer';
 STR_TYPE: 'string';
 BOOL_TYPE: 'boolean';
 CHAR_TYPE: 'char';
+VAR: 'var';
+ARRAY: 'array';
+OF: 'of';
+CONST: 'const';
+CONST_CHAR: 'constchar';
+CONST_STRING: 'conststring';
+ARRAY_OF: 'array of';
 
-//token assignation
-ASSIGN: ':=';
+//tokens for operations
 EQUAL: '=';
 EQUALS: '==';
+
+//asignation token
+ASSIGN: ':=';
 
 //tokens general
 NUMBER:[0-9]+; //number
 TEXT: '"' ( ~["\r\n] | '""' )* '"'; //string
-COLON: ':'; //colon or double point
-SEMI_COLON: ';'; //semicolon or point and coma
-COMA: ','; //comma
-VAR: 'var'; //var declaration
-LETTERS: [A-Z]; //letters identifier
+COLON: ':';
+SEMI_COLON: ';';
+COMA: ',';
+LETTERS: [a-zA-Z];
+DOBLEDOTS: '..';
+QUATATION_MARK: '\'';
+DOUBLE_QUOTATION_MARK:'"'; //double quotation mark
+DOT: '.';
+TRUE:'true';
+FALSE:'false';
 
 ID:[a-z][a-z0-9]*([_][a-z0-9]+)*; //id identifier
 WS:[ \t\n\r]+ -> skip;//skip whitespace
