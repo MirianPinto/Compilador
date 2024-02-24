@@ -7,19 +7,33 @@ main:
 PROGRAM ID SEMI_COLON
     (varBlock)?
     BEGIN
-    (ID|NUMBER|TEXT|LETTERS)*
+    (ID|NUMBER|TEXT|write_function| read_function)*
     END DOT EOF
     ;
 
 //declarations of variables
 varBlock: VAR varDecl+ ;
 varDecl: varID COLON typeDef SEMI_COLON;
-varID:(ID|LETTERS) (COMA (ID|LETTERS))* ;
+varID:(ID) (COMA (ID))* ;
 typeDef: typeName ;
 typeName: INT_TYPE
        | CHAR_TYPE
        | BOOL_TYPE
        | STR_TYPE ;
+
+
+read_function: READ BRACKET_LEFT readId BRACKET_RIGHT SEMI_COLON;
+readId: ID#idRead;
+
+
+write_function: WRITE BRACKET_LEFT writeId BRACKET_RIGHT SEMI_COLON;
+writeId:ID#idWrite
+        |TEXT COMA ID #idWrite;
+
+READ: 'read';
+WRITE: 'write';
+BRACKET_LEFT: '(';
+BRACKET_RIGHT: ')';
 
 //token main
 PROGRAM: 'program';
@@ -52,7 +66,6 @@ TEXT: '"' ( ~["\r\n] | '""' )* '"'; //string
 COLON: ':';
 SEMI_COLON: ';';
 COMA: ',';
-LETTERS: [a-zA-Z];
 DOBLEDOTS: '..';
 QUATATION_MARK: '\'';
 DOUBLE_QUOTATION_MARK:'"'; //double quotation mark
