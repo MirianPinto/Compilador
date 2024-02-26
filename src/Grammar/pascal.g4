@@ -32,6 +32,7 @@ typeName: INT_TYPE
 
 
 
+
 //declaration of funtions
 functionBlock: functionDecl+;
 functionDecl: FUNCTION (ID) params COLON returnType
