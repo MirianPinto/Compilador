@@ -9,8 +9,8 @@ PROGRAM ID SEMI_COLON
     (functionBlock)?
     BEGIN
 
-    (whileBlock|forBlock|repeatBlock|ifBlock|assign|fuctionUsage)*
-    (ID|NUMBER|TEXT|write_function| read_function)*
+    (TEXT|whileBlock|forBlock|repeatBlock|ifBlock|assign|fuctionUsage|write_function|read_function)*
+
 
     END DOT EOF
     ;
@@ -37,11 +37,11 @@ functionBlock: functionDecl+;
 functionDecl: FUNCTION (ID) params COLON returnType
             (varBlock)?
             BEGIN
-            (whileBlock|forBlock|repeatBlock|ifBlock|assign|fuctionUsage)*
+            (whileBlock|forBlock|repeatBlock|ifBlock|assign|fuctionUsage|write_function|read_function)*
             (ID|NUMBER|TEXT)*
             assign
             END SEMI_COLON;
-params: PARENTHESIS_LEFT ((varParamBlock)?) PARENTHESIS_RIGHT;
+params: BRACKET_LEFT ((varParamBlock)?) BRACKET_RIGHT;
 returnType: INT_TYPE | CHAR_TYPE | BOOL_TYPE | STR_TYPE;
 
 //declaration of params for funtions
@@ -55,22 +55,22 @@ typeParamName: INT_TYPE
        | STR_TYPE ;
 
 //function usage declaration
-fuctionUsage: ID PARENTHESIS_LEFT ((ID|NUMBER)(COMA (ID|NUMBER))*)* PARENTHESIS_RIGHT SEMI_COLON;
+fuctionUsage: ID BRACKET_LEFT ((ID|NUMBER)(COMA (ID|NUMBER))*)* BRACKET_RIGHT SEMI_COLON;
 
 //declaration of cycles
 //Cycle While
 whileBlock: whileDecla+;
 whileDecla: C_WHILE condition C_DO
             BEGIN
-            (whileBlock|forBlock|repeatBlock|ifBlock|assign|fuctionUsage)*
+            (whileBlock|forBlock|repeatBlock|ifBlock|assign|fuctionUsage|write_function|read_function)*
             END SEMI_COLON;
-condition: PARENTHESIS_LEFT ( (ID) BOOLEANE (ID|NUMBER)) PARENTHESIS_RIGHT;
+condition: BRACKET_LEFT ( (ID) BOOLEANE (ID|NUMBER)) BRACKET_RIGHT;
 
 //Cycle for
 forBlock: forDecla+;
 forDecla: C_FOR forcondition C_to (NUMBER|ID) C_DO
             BEGIN
-            (forBlock)*
+             (whileBlock|forBlock|repeatBlock|ifBlock|assign|fuctionUsage|write_function|read_function)*
             END SEMI_COLON;
 forcondition:( (ID|) ASSIGN (NUMBER) ) ;
 
@@ -78,7 +78,7 @@ forcondition:( (ID|) ASSIGN (NUMBER) ) ;
 repeatBlock: repeatDecla+;
 repeatDecla: C_REPEAT
             BEGIN
-            (whileBlock|forBlock|repeatBlock|ifBlock|assign|fuctionUsage)*
+            (whileBlock|forBlock|repeatBlock|ifBlock|assign|fuctionUsage|write_function|read_function)*
             END
             repeatcondition;
 repeatcondition: C_UNTIL ( (ID) BOOLEANE (ID)) SEMI_COLON ;
@@ -87,7 +87,7 @@ repeatcondition: C_UNTIL ( (ID) BOOLEANE (ID)) SEMI_COLON ;
 ifBlock: ifDecla+;
 ifDecla: C_IF ifcondition C_THEN
             BEGIN
-            (whileBlock|forBlock|repeatBlock|ifBlock|assign|fuctionUsage)*
+            (whileBlock|forBlock|repeatBlock|ifBlock|assign|fuctionUsage|write_function|read_function)*
             END SEMI_COLON;
 ifcondition:  ( (ID) BOOLEANE (ID|NUMBER)) ;
 
@@ -148,8 +148,7 @@ BOOLEANE:'>'|'<'|'<>'|'>='|'=='|'<='|'AND'|'OR'|'NOT';
 
 //Funtions tokens
 FUNCTION: 'function';
-PARENTHESIS_LEFT: '(';
-PARENTHESIS_RIGHT: ')';
+
 
 
 //Cicles tokens
