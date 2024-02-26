@@ -8,8 +8,10 @@ PROGRAM ID SEMI_COLON
     (varBlock)?
     (functionBlock)?
     BEGIN
+
     (whileBlock|forBlock|repeatBlock|ifBlock|assign|fuctionUsage)*
-    (ID|NUMBER|TEXT)*
+    (ID|NUMBER|TEXT|write_function| read_function)*
+
     END DOT EOF
     ;
 
@@ -27,6 +29,7 @@ typeName: INT_TYPE
        | CHAR_TYPE
        | BOOL_TYPE
        | STR_TYPE ;
+
 
 
 //declaration of funtions
@@ -87,6 +90,20 @@ ifDecla: C_IF ifcondition C_THEN
             (whileBlock|forBlock|repeatBlock|ifBlock|assign|fuctionUsage)*
             END SEMI_COLON;
 ifcondition:  ( (ID) BOOLEANE (ID|NUMBER)) ;
+
+
+read_function: READ BRACKET_LEFT readId BRACKET_RIGHT SEMI_COLON;
+readId: ID#idRead;
+
+
+write_function: WRITE BRACKET_LEFT writeId BRACKET_RIGHT SEMI_COLON;
+writeId:ID#idWrite
+        |TEXT COMA ID #idWrite;
+
+READ: 'read';
+WRITE: 'write';
+BRACKET_LEFT: '(';
+BRACKET_RIGHT: ')';
 
 
 //token main
