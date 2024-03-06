@@ -168,3 +168,9 @@ ID:[a-z][a-z0-9]*([_][a-z0-9]+)*; //id identifier
 WS:[ \t\n\r]+ -> skip;//skip whitespace
 COMMENT: '{' .*? '}' -> skip; //comments
 
+//math operatrors
+PLUS: '+';
+MINUS: '-';
+MULT: '*';
+DIV: '/';
+
