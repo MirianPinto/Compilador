@@ -22,7 +22,7 @@ assign: (ID) ASSIGN (ID|NUMBER) SEMI_COLON ;
 
 
 //declarations of variables
-varBlock: VAR varDecl+ ;
+varBlock: VAR varDecl+ (arrSect)? ;
 varDecl: varID COLON typeDef SEMI_COLON;
 varID:(ID) (COMA (ID))* ;
 typeDef: typeName ;
@@ -30,6 +30,10 @@ typeName: INT_TYPE
        | CHAR_TYPE
        | BOOL_TYPE
        | STR_TYPE ;
+arrSect: arrDecl+;
+arrDecl: arr1D | arr2D;
+arr1D: ID COLON ARRAY SQBRACKET_LEFT NUMBER DOBLEDOTS NUMBER SQBRACKET_RIGHT OF INT_TYPE SEMI_COLON;
+arr2D: ID COLON ARRAY SQBRACKET_LEFT NUMBER DOBLEDOTS NUMBER COMA NUMBER DOBLEDOTS NUMBER SQBRACKET_RIGHT OF INT_TYPE SEMI_COLON;
 
 //declariotions of constants
 constBlock: CONST constDecl+;
@@ -109,7 +113,8 @@ READ: 'read';
 WRITE: 'write';
 BRACKET_LEFT: '(';
 BRACKET_RIGHT: ')';
-
+SQBRACKET_LEFT: '[';
+SQBRACKET_RIGHT: ']';
 
 //token main
 PROGRAM: 'program';
@@ -178,4 +183,3 @@ PLUS: '+';
 MINUS: '-';
 MULT: '*';
 DIV: '/';
-
