@@ -10,7 +10,7 @@ PROGRAM ID SEMI_COLON
     (functionBlock)?
     BEGIN
 
-    (TEXT|whileBlock|forBlock|repeatBlock|ifBlock|assign|fuctionUsage|write_function|read_function)*
+    (TEXT|whileBlock|forBlock|repeatBlock|ifBlock|fuctionUsage|write_function|read_function|sentence)*
 
 
     END DOT EOF
@@ -18,8 +18,16 @@ PROGRAM ID SEMI_COLON
 
 //DECLARATIONS GENERALS
 //ASIGNACION
-assign: (ID) ASSIGN (ID|NUMBER) SEMI_COLON ;
-
+//math expressions
+sentence: assign | expression;
+assign: (ID) ASSIGN expression SEMI_COLON ;
+expression: expression PLUS expression
+            | expression MULT expression
+            | expression DIV expression
+            | expression MINUS expression
+            | expression MOD expression
+            | NUMBER
+            | ID;
 
 //declarations of variables
 varBlock: VAR varDecl+ (arrSect)? ;
@@ -183,3 +191,4 @@ PLUS: '+';
 MINUS: '-';
 MULT: '*';
 DIV: '/';
+MOD: '%';
