@@ -6,6 +6,7 @@ language = Java;
 main:
 PROGRAM ID SEMI_COLON
     (varBlock)?
+    (constBlock)?
     (functionBlock)?
     BEGIN
 
@@ -30,8 +31,11 @@ typeName: INT_TYPE
        | BOOL_TYPE
        | STR_TYPE ;
 
-
-
+//declariotions of constants
+constBlock: CONST constDecl+;
+constDecl: constCharDecl | constStrDecl;
+constCharDecl: CONST_CHAR COLON ID EQUAL QUATATION_MARK CHAR QUATATION_MARK SEMI_COLON;
+constStrDecl: CONST_STRING COLON ID EQUAL QUATATION_MARK ID QUATATION_MARK SEMI_COLON;
 
 //declaration of funtions
 functionBlock: functionDecl+;
@@ -122,7 +126,7 @@ ARRAY: 'array';
 OF: 'of';
 CONST: 'const';
 CONST_CHAR: 'constchar';
-CONST_STRING: 'conststring';
+CONST_STRING: 'conststr';
 ARRAY_OF: 'array of';
 
 //tokens for operations
@@ -143,6 +147,7 @@ DOUBLE_QUOTATION_MARK:'"'; //double quotation mark
 DOT: '.';
 TRUE:'true';
 FALSE:'false';
+CHAR: [a-zA-Z0-9];
 
 //boolean expression tokens
 BOOLEANE:'>'|'<'|'<>'|'>='|'=='|'<='|'AND'|'OR'|'NOT';
