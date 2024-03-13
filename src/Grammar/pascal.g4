@@ -6,10 +6,11 @@ language = Java;
 main:
 PROGRAM ID SEMI_COLON
     (varBlock)?
+    (constBlock)?
     (functionBlock)?
     BEGIN
 
-    (TEXT|whileBlock|forBlock|repeatBlock|ifBlock|assign|fuctionUsage|write_function|read_function)*
+    (TEXT|whileBlock|forBlock|repeatBlock|ifBlock|fuctionUsage|write_function|read_function|sentence)*
 
 
     END DOT EOF
@@ -17,11 +18,19 @@ PROGRAM ID SEMI_COLON
 
 //DECLARATIONS GENERALS
 //ASIGNACION
-assign: (ID) ASSIGN (ID|NUMBER) SEMI_COLON ;
-
+//math expressions
+sentence: assign | expression;
+assign: (ID) ASSIGN expression SEMI_COLON ;
+expression: expression PLUS expression
+            | expression MULT expression
+            | expression DIV expression
+            | expression MINUS expression
+            | expression MOD expression
+            | NUMBER
+            | ID;
 
 //declarations of variables
-varBlock: VAR varDecl+ ;
+varBlock: VAR varDecl+ (arrSect)? ;
 varDecl: varID COLON typeDef SEMI_COLON;
 varID:(ID) (COMA (ID))* ;
 typeDef: typeName ;
@@ -29,9 +38,16 @@ typeName: INT_TYPE
        | CHAR_TYPE
        | BOOL_TYPE
        | STR_TYPE ;
+arrSect: arrDecl+;
+arrDecl: arr1D | arr2D;
+arr1D: ID COLON ARRAY SQBRACKET_LEFT NUMBER DOBLEDOTS NUMBER SQBRACKET_RIGHT OF INT_TYPE SEMI_COLON;
+arr2D: ID COLON ARRAY SQBRACKET_LEFT NUMBER DOBLEDOTS NUMBER COMA NUMBER DOBLEDOTS NUMBER SQBRACKET_RIGHT OF INT_TYPE SEMI_COLON;
 
-
-
+//declariotions of constants
+constBlock: CONST constDecl+;
+constDecl: constCharDecl | constStrDecl;
+constCharDecl: CONST_CHAR COLON ID EQUAL QUATATION_MARK CHAR QUATATION_MARK SEMI_COLON;
+constStrDecl: CONST_STRING COLON ID EQUAL QUATATION_MARK ID QUATATION_MARK SEMI_COLON;
 
 //declaration of funtions
 functionBlock: functionDecl+;
@@ -105,7 +121,8 @@ READ: 'read';
 WRITE: 'write';
 BRACKET_LEFT: '(';
 BRACKET_RIGHT: ')';
-
+SQBRACKET_LEFT: '[';
+SQBRACKET_RIGHT: ']';
 
 //token main
 PROGRAM: 'program';
@@ -122,7 +139,7 @@ ARRAY: 'array';
 OF: 'of';
 CONST: 'const';
 CONST_CHAR: 'constchar';
-CONST_STRING: 'conststring';
+CONST_STRING: 'conststr';
 ARRAY_OF: 'array of';
 
 //tokens for operations
@@ -143,6 +160,7 @@ DOUBLE_QUOTATION_MARK:'"'; //double quotation mark
 DOT: '.';
 TRUE:'true';
 FALSE:'false';
+CHAR: [a-zA-Z0-9];
 
 //boolean expression tokens
 BOOLEANE:'>'|'<'|'<>'|'>='|'=='|'<='|'AND'|'OR'|'NOT';
@@ -168,3 +186,9 @@ ID:[a-z][a-z0-9]*([_][a-z0-9]+)*; //id identifier
 WS:[ \t\n\r]+ -> skip;//skip whitespace
 COMMENT: '{' .*? '}' -> skip; //comments
 
+//math operatrors
+PLUS: '+';
+MINUS: '-';
+MULT: '*';
+DIV: '/';
+MOD: '%';
