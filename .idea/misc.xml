@@ -6,7 +6,7 @@
         <PerGrammarGenerationSettings>
           <option name="fileName" value="$PROJECT_DIR$/src/Grammar/pascal.g4" />
           <option name="autoGen" value="true" />
-          <option name="outputDir" value="C:\Users\MSI-FL\Documents\GitHub\Compilador\src" />
+          <option name="outputDir" value="C:\Users\miria\IdeaProjects\Compilador\src" />
           <option name="libDir" value="" />
           <option name="encoding" value="" />
           <option name="pkg" value="Pascal" />

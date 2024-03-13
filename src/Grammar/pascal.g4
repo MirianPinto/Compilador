@@ -30,18 +30,18 @@ expression: expression PLUS expression
             | ID;
 
 //declarations of variables
-varBlock: VAR varDecl+ (arrSect)? ;
+varBlock: VAR varDecl+ ;
 varDecl: varID COLON typeDef SEMI_COLON;
 varID:(ID) (COMA (ID))* ;
 typeDef: typeName ;
 typeName: INT_TYPE
        | CHAR_TYPE
        | BOOL_TYPE
-       | STR_TYPE ;
-arrSect: arrDecl+;
+       | STR_TYPE
+       | arrDecl;
 arrDecl: arr1D | arr2D;
-arr1D: ID COLON ARRAY SQBRACKET_LEFT NUMBER DOBLEDOTS NUMBER SQBRACKET_RIGHT OF INT_TYPE SEMI_COLON;
-arr2D: ID COLON ARRAY SQBRACKET_LEFT NUMBER DOBLEDOTS NUMBER COMA NUMBER DOBLEDOTS NUMBER SQBRACKET_RIGHT OF INT_TYPE SEMI_COLON;
+arr1D:ARRAY SQBRACKET_LEFT NUMBER DOBLEDOTS NUMBER SQBRACKET_RIGHT OF INT_TYPE;
+arr2D:ARRAY SQBRACKET_LEFT NUMBER DOBLEDOTS NUMBER COMA NUMBER DOBLEDOTS NUMBER SQBRACKET_RIGHT OF INT_TYPE;
 
 //declariotions of constants
 constBlock: CONST constDecl+;
@@ -182,7 +182,7 @@ C_UNTIL: 'until';
 C_IF: 'if';
 C_THEN:'then';
 
-ID:[a-z][a-z0-9]*([_][a-z0-9]+)*; //id identifier
+ID:[a-z][a-z0-9]*([_][a-z0-9]+)* ; //ididentifier
 WS:[ \t\n\r]+ -> skip;//skip whitespace
 COMMENT: '{' .*? '}' -> skip; //comments
 
