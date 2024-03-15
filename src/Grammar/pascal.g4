@@ -43,6 +43,8 @@ arrDecl: arr1D | arr2D;
 arr1D:ARRAY SQBRACKET_LEFT NUMBER DOBLEDOTS NUMBER SQBRACKET_RIGHT OF INT_TYPE;
 arr2D:ARRAY SQBRACKET_LEFT NUMBER DOBLEDOTS NUMBER COMA NUMBER DOBLEDOTS NUMBER SQBRACKET_RIGHT OF INT_TYPE;
 
+
+
 //declariotions of constants
 constBlock: CONST constDecl+;
 constDecl: constCharDecl | constStrDecl;
@@ -109,13 +111,20 @@ ifDecla: C_IF ifcondition C_THEN
 ifcondition:  ( (ID) BOOLEANE (ID|NUMBER)) ;
 
 
+array_call: ID SQBRACKET_LEFT NUMBER SQBRACKET_RIGHT;
+arraybi_call: ID SQBRACKET_LEFT NUMBER SQBRACKET_RIGHT SQBRACKET_LEFT NUMBER SQBRACKET_RIGHT;
+
 read_function: READ BRACKET_LEFT readId BRACKET_RIGHT SEMI_COLON;
-readId: ID#idRead;
+readId: ID#idRead
+        |array_call#arrayRead
+        |arraybi_call#arraybiRead;
 
 
 write_function: WRITE BRACKET_LEFT writeId BRACKET_RIGHT SEMI_COLON;
 writeId:ID#idWrite
-        |TEXT COMA ID #idWrite;
+        |TEXT COMA ID #idWrite
+        |array_call#arrayWrite
+        |arraybi_call#arraybiWrite;
 
 READ: 'read';
 WRITE: 'write';
