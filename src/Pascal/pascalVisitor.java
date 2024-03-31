@@ -83,6 +83,12 @@ public interface pascalVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitArr2D(pascalParser.Arr2DContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link pascalParser#typearray}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitTypearray(pascalParser.TypearrayContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link pascalParser#constBlock}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -239,6 +245,18 @@ public interface pascalVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitIfcondition(pascalParser.IfconditionContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link pascalParser#array_call}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitArray_call(pascalParser.Array_callContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link pascalParser#arraybi_call}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitArraybi_call(pascalParser.Arraybi_callContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link pascalParser#read_function}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -252,6 +270,20 @@ public interface pascalVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitIdRead(pascalParser.IdReadContext ctx);
 	/**
+	 * Visit a parse tree produced by the {@code arrayRead}
+	 * labeled alternative in {@link pascalParser#readId}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitArrayRead(pascalParser.ArrayReadContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code arraybiRead}
+	 * labeled alternative in {@link pascalParser#readId}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitArraybiRead(pascalParser.ArraybiReadContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link pascalParser#write_function}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -264,4 +296,25 @@ public interface pascalVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitIdWrite(pascalParser.IdWriteContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code arrayWrite}
+	 * labeled alternative in {@link pascalParser#writeId}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitArrayWrite(pascalParser.ArrayWriteContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code arraybiWrite}
+	 * labeled alternative in {@link pascalParser#writeId}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitArraybiWrite(pascalParser.ArraybiWriteContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code idText}
+	 * labeled alternative in {@link pascalParser#writeId}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitIdText(pascalParser.IdTextContext ctx);
 }

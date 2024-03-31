@@ -128,6 +128,16 @@ public interface pascalListener extends ParseTreeListener {
 	 */
 	void exitArr2D(pascalParser.Arr2DContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link pascalParser#typearray}.
+	 * @param ctx the parse tree
+	 */
+	void enterTypearray(pascalParser.TypearrayContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link pascalParser#typearray}.
+	 * @param ctx the parse tree
+	 */
+	void exitTypearray(pascalParser.TypearrayContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link pascalParser#constBlock}.
 	 * @param ctx the parse tree
 	 */
@@ -388,6 +398,26 @@ public interface pascalListener extends ParseTreeListener {
 	 */
 	void exitIfcondition(pascalParser.IfconditionContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link pascalParser#array_call}.
+	 * @param ctx the parse tree
+	 */
+	void enterArray_call(pascalParser.Array_callContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link pascalParser#array_call}.
+	 * @param ctx the parse tree
+	 */
+	void exitArray_call(pascalParser.Array_callContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link pascalParser#arraybi_call}.
+	 * @param ctx the parse tree
+	 */
+	void enterArraybi_call(pascalParser.Arraybi_callContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link pascalParser#arraybi_call}.
+	 * @param ctx the parse tree
+	 */
+	void exitArraybi_call(pascalParser.Arraybi_callContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link pascalParser#read_function}.
 	 * @param ctx the parse tree
 	 */
@@ -410,6 +440,30 @@ public interface pascalListener extends ParseTreeListener {
 	 */
 	void exitIdRead(pascalParser.IdReadContext ctx);
 	/**
+	 * Enter a parse tree produced by the {@code arrayRead}
+	 * labeled alternative in {@link pascalParser#readId}.
+	 * @param ctx the parse tree
+	 */
+	void enterArrayRead(pascalParser.ArrayReadContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code arrayRead}
+	 * labeled alternative in {@link pascalParser#readId}.
+	 * @param ctx the parse tree
+	 */
+	void exitArrayRead(pascalParser.ArrayReadContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code arraybiRead}
+	 * labeled alternative in {@link pascalParser#readId}.
+	 * @param ctx the parse tree
+	 */
+	void enterArraybiRead(pascalParser.ArraybiReadContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code arraybiRead}
+	 * labeled alternative in {@link pascalParser#readId}.
+	 * @param ctx the parse tree
+	 */
+	void exitArraybiRead(pascalParser.ArraybiReadContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link pascalParser#write_function}.
 	 * @param ctx the parse tree
 	 */
@@ -431,4 +485,40 @@ public interface pascalListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitIdWrite(pascalParser.IdWriteContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code arrayWrite}
+	 * labeled alternative in {@link pascalParser#writeId}.
+	 * @param ctx the parse tree
+	 */
+	void enterArrayWrite(pascalParser.ArrayWriteContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code arrayWrite}
+	 * labeled alternative in {@link pascalParser#writeId}.
+	 * @param ctx the parse tree
+	 */
+	void exitArrayWrite(pascalParser.ArrayWriteContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code arraybiWrite}
+	 * labeled alternative in {@link pascalParser#writeId}.
+	 * @param ctx the parse tree
+	 */
+	void enterArraybiWrite(pascalParser.ArraybiWriteContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code arraybiWrite}
+	 * labeled alternative in {@link pascalParser#writeId}.
+	 * @param ctx the parse tree
+	 */
+	void exitArraybiWrite(pascalParser.ArraybiWriteContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code idText}
+	 * labeled alternative in {@link pascalParser#writeId}.
+	 * @param ctx the parse tree
+	 */
+	void enterIdText(pascalParser.IdTextContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code idText}
+	 * labeled alternative in {@link pascalParser#writeId}.
+	 * @param ctx the parse tree
+	 */
+	void exitIdText(pascalParser.IdTextContext ctx);
 }

@@ -64,12 +64,22 @@
         <constraints>
           <grid row="2" column="0" row-span="1" col-span="3" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
         </constraints>
-        <properties/>
+        <properties>
+          <horizontalScrollBarPolicy value="30"/>
+          <verticalScrollBarPolicy value="20"/>
+        </properties>
         <border type="none"/>
         <children>
           <component id="8a8b1" class="javax.swing.JTextArea" binding="textArea2" default-binding="true">
             <constraints/>
-            <properties/>
+            <properties>
+              <editable value="false"/>
+              <lineWrap value="true"/>
+            </properties>
+            <clientProperties>
+              <caretAspectRatio class="java.lang.Double" value="0.0"/>
+              <caretWidth class="java.lang.Integer" value="10"/>
+            </clientProperties>
           </component>
         </children>
       </scrollpane>

@@ -54,23 +54,32 @@ public class MiniPascal extends JFrame {
                 if(errores.isEmpty())
                 {
                     textArea2.setText("");
-                    textArea2.setForeground(Color.green);
-                    textArea2.setText("Codigo Correcto!");
+                    textArea2.setForeground(Color.blue);
+                    textArea2.setText("Codigo Correcto! \n\nEste es el arbol para este codigo\n"+tree.toStringTree(pp));
+
                 }else
                 {
                     textArea2.setText("");
                     textArea2.setForeground(Color.red);
+                    textArea2.setText("Codigo incorrecto!\n");
                     for (String error : errores) {
-
                         System.out.println(error);
-                        textArea2.append(error+"a\n");
+                        textArea2.append(error+"\n");
                     }
+
+                    textArea2.append("\n\nEste es el arbol para este codigo\n"+tree.toStringTree(pp));
                 }
 
 
-                System.out.println(tree.toStringTree(pp));
 
 
+            }
+        });
+        Clear.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                textArea2.setText("");
+                textArea1.setText("");
             }
         });
     }
