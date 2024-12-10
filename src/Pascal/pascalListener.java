@@ -1,4 +1,4 @@
-// Generated from C:/Users/miria/IdeaProjects/Compilador/src/Grammar/pascal.g4 by ANTLR 4.13.1
+// Generated from C:/Users/miria/IdeaProjects/Compilador/src/Grammar/pascal.g4 by ANTLR 4.13.2
 package Pascal;
 import org.antlr.v4.runtime.tree.ParseTreeListener;
 
@@ -17,6 +17,26 @@ public interface pascalListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitMain(pascalParser.MainContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link pascalParser#statements}.
+	 * @param ctx the parse tree
+	 */
+	void enterStatements(pascalParser.StatementsContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link pascalParser#statements}.
+	 * @param ctx the parse tree
+	 */
+	void exitStatements(pascalParser.StatementsContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link pascalParser#typesstatemes}.
+	 * @param ctx the parse tree
+	 */
+	void enterTypesstatemes(pascalParser.TypesstatemesContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link pascalParser#typesstatemes}.
+	 * @param ctx the parse tree
+	 */
+	void exitTypesstatemes(pascalParser.TypesstatemesContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link pascalParser#sentence}.
 	 * @param ctx the parse tree
@@ -38,15 +58,133 @@ public interface pascalListener extends ParseTreeListener {
 	 */
 	void exitAssign(pascalParser.AssignContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link pascalParser#expression}.
+	 * Enter a parse tree produced by the {@code ParenthesizedExpression}
+	 * labeled alternative in {@link pascalParser#expression}.
 	 * @param ctx the parse tree
 	 */
-	void enterExpression(pascalParser.ExpressionContext ctx);
+	void enterParenthesizedExpression(pascalParser.ParenthesizedExpressionContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link pascalParser#expression}.
+	 * Exit a parse tree produced by the {@code ParenthesizedExpression}
+	 * labeled alternative in {@link pascalParser#expression}.
 	 * @param ctx the parse tree
 	 */
-	void exitExpression(pascalParser.ExpressionContext ctx);
+	void exitParenthesizedExpression(pascalParser.ParenthesizedExpressionContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code AddExpression}
+	 * labeled alternative in {@link pascalParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void enterAddExpression(pascalParser.AddExpressionContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code AddExpression}
+	 * labeled alternative in {@link pascalParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void exitAddExpression(pascalParser.AddExpressionContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code ModExpression}
+	 * labeled alternative in {@link pascalParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void enterModExpression(pascalParser.ModExpressionContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code ModExpression}
+	 * labeled alternative in {@link pascalParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void exitModExpression(pascalParser.ModExpressionContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code ArrayCallExpression}
+	 * labeled alternative in {@link pascalParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void enterArrayCallExpression(pascalParser.ArrayCallExpressionContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code ArrayCallExpression}
+	 * labeled alternative in {@link pascalParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void exitArrayCallExpression(pascalParser.ArrayCallExpressionContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code ArrayBiCallExpression}
+	 * labeled alternative in {@link pascalParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void enterArrayBiCallExpression(pascalParser.ArrayBiCallExpressionContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code ArrayBiCallExpression}
+	 * labeled alternative in {@link pascalParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void exitArrayBiCallExpression(pascalParser.ArrayBiCallExpressionContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code DivExpression}
+	 * labeled alternative in {@link pascalParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void enterDivExpression(pascalParser.DivExpressionContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code DivExpression}
+	 * labeled alternative in {@link pascalParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void exitDivExpression(pascalParser.DivExpressionContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code ValuesExpression}
+	 * labeled alternative in {@link pascalParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void enterValuesExpression(pascalParser.ValuesExpressionContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code ValuesExpression}
+	 * labeled alternative in {@link pascalParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void exitValuesExpression(pascalParser.ValuesExpressionContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code SubExpression}
+	 * labeled alternative in {@link pascalParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void enterSubExpression(pascalParser.SubExpressionContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code SubExpression}
+	 * labeled alternative in {@link pascalParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void exitSubExpression(pascalParser.SubExpressionContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code MultExpression}
+	 * labeled alternative in {@link pascalParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void enterMultExpression(pascalParser.MultExpressionContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code MultExpression}
+	 * labeled alternative in {@link pascalParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void exitMultExpression(pascalParser.MultExpressionContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link pascalParser#assingId}.
+	 * @param ctx the parse tree
+	 */
+	void enterAssingId(pascalParser.AssingIdContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link pascalParser#assingId}.
+	 * @param ctx the parse tree
+	 */
+	void exitAssingId(pascalParser.AssingIdContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link pascalParser#optional_values}.
+	 * @param ctx the parse tree
+	 */
+	void enterOptional_values(pascalParser.Optional_valuesContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link pascalParser#optional_values}.
+	 * @param ctx the parse tree
+	 */
+	void exitOptional_values(pascalParser.Optional_valuesContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link pascalParser#varBlock}.
 	 * @param ctx the parse tree
@@ -137,6 +275,16 @@ public interface pascalListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitTypearray(pascalParser.TypearrayContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link pascalParser#range}.
+	 * @param ctx the parse tree
+	 */
+	void enterRange(pascalParser.RangeContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link pascalParser#range}.
+	 * @param ctx the parse tree
+	 */
+	void exitRange(pascalParser.RangeContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link pascalParser#constBlock}.
 	 * @param ctx the parse tree
@@ -397,6 +545,16 @@ public interface pascalListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitIfcondition(pascalParser.IfconditionContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link pascalParser#conditionvali}.
+	 * @param ctx the parse tree
+	 */
+	void enterConditionvali(pascalParser.ConditionvaliContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link pascalParser#conditionvali}.
+	 * @param ctx the parse tree
+	 */
+	void exitConditionvali(pascalParser.ConditionvaliContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link pascalParser#array_call}.
 	 * @param ctx the parse tree

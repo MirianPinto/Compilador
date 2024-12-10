@@ -10,32 +10,57 @@ PROGRAM ID SEMI_COLON
     (functionBlock)?
     BEGIN
 
-    (TEXT|whileBlock|forBlock|repeatBlock|ifBlock|fuctionUsage|write_function|read_function|sentence)*
+    statements
 
 
     END DOT EOF
     ;
 
+
+statements:  typesstatemes*;
+typesstatemes :whileBlock
+               |forBlock
+               |repeatBlock
+               |ifBlock
+               |fuctionUsage
+               |write_function
+               |read_function
+               |sentence
+               |TEXT
+               ;
+
+
 //DECLARATIONS GENERALS
 //ASIGNACION
 //math expressions
 sentence: assign | expression;
-assign: (ID|array_call| arraybi_call) ASSIGN expression SEMI_COLON ;
-expression: BRACKET_LEFT expression PLUS expression BRACKET_RIGHT
-            | BRACKET_LEFT expression MULT expression BRACKET_RIGHT
-            | BRACKET_LEFT expression DIV expression BRACKET_RIGHT
-            | BRACKET_LEFT expression MINUS expression BRACKET_RIGHT
-            | BRACKET_LEFT expression MOD expression BRACKET_RIGHT
-            | NUMBER
-            | ID
-            | array_call
-            | arraybi_call
-            | expression PLUS expression
-            | expression MULT expression
-            | expression DIV expression
-            | expression MINUS expression
-            | expression MOD expression ;
+assign: (assingId) ASSIGN (expression) SEMI_COLON ;
+expression
+    : BRACKET_LEFT expression BRACKET_RIGHT                # ParenthesizedExpression
+    | expression MULT expression                          # MultExpression
+    | expression DIV expression                           # DivExpression
+    | expression MOD expression                           # ModExpression
+    | expression PLUS expression                          # AddExpression
+    | expression MINUS expression                         # SubExpression
+    | optional_values                                     # ValuesExpression
+    | array_call                                         # ArrayCallExpression
+    | arraybi_call                                       # ArrayBiCallExpression
+    ;
 
+assingId:ID
+    | array_call
+    | arraybi_call
+     ;
+
+optional_values:
+      fuctionUsage
+    | TEXT
+    | NUMBER
+    | ID
+    | TEXTCHAR
+    | TRUE
+    | FALSE
+    ;
 //declarations of variables
 varBlock: VAR varDecl+ ;
 varDecl: varID COLON typeDef SEMI_COLON;
@@ -47,28 +72,30 @@ typeName: INT_TYPE
        | STR_TYPE
        | arrDecl;
 arrDecl: arr1D | arr2D;
-arr1D:ARRAY SQBRACKET_LEFT NUMBER DOBLEDOTS NUMBER SQBRACKET_RIGHT OF typearray;
-arr2D:ARRAY SQBRACKET_LEFT NUMBER DOBLEDOTS NUMBER COMA NUMBER DOBLEDOTS NUMBER SQBRACKET_RIGHT OF typearray;
+arr1D:ARRAY SQBRACKET_LEFT range DOBLEDOTS range SQBRACKET_RIGHT OF typearray;
+arr2D:ARRAY SQBRACKET_LEFT range DOBLEDOTS range COMA range DOBLEDOTS range SQBRACKET_RIGHT OF typearray;
 typearray:INT_TYPE
           | CHAR_TYPE
           | BOOL_TYPE
           | STR_TYPE;
+range:NUMBER;
 
 
 //declariotions of constants
 constBlock: CONST constDecl+;
 constDecl: constCharDecl | constStrDecl;
-constCharDecl: CONST_CHAR COLON ID EQUAL TEXT SEMI_COLON;
+constCharDecl: CONST_CHAR COLON ID EQUAL TEXTCHAR SEMI_COLON;
 constStrDecl: CONST_STRING COLON ID EQUAL TEXT SEMI_COLON;
 
 //declaration of funtions
 functionBlock: functionDecl+;
-functionDecl: FUNCTION (ID) params COLON returnType
+functionDecl: FUNCTION ID params COLON returnType SEMI_COLON
             (varBlock)?
+            (functionBlock)?
             BEGIN
             (whileBlock|forBlock|repeatBlock|ifBlock|assign|fuctionUsage|write_function|read_function)*
             (ID|NUMBER|TEXT)*
-            assign
+            (assign)?
             END SEMI_COLON;
 params: BRACKET_LEFT ((varParamBlock)?) BRACKET_RIGHT;
 returnType: INT_TYPE | CHAR_TYPE | BOOL_TYPE | STR_TYPE;
@@ -84,7 +111,7 @@ typeParamName: INT_TYPE
        | STR_TYPE ;
 
 //function usage declaration
-fuctionUsage: ID BRACKET_LEFT ((ID|NUMBER)(COMA (ID|NUMBER))*)* BRACKET_RIGHT SEMI_COLON;
+fuctionUsage: ID BRACKET_LEFT ((expression)(COMA (expression))*)? BRACKET_RIGHT (SEMI_COLON)?;
 
 //declaration of cycles
 //Cycle While
@@ -93,15 +120,15 @@ whileDecla: C_WHILE condition C_DO
             BEGIN
             (whileBlock|forBlock|repeatBlock|ifBlock|fuctionUsage|write_function|read_function|sentence)*
             END SEMI_COLON;
-condition: BRACKET_LEFT ( (ID|sentence) BOOLEANE (ID|NUMBER|sentence)) BRACKET_RIGHT;
+condition: BRACKET_LEFT ( (ID|sentence) conditionvali (ID|NUMBER|sentence)) BRACKET_RIGHT;
 
 //Cycle for
 forBlock: forDecla+;
 forDecla: C_FOR forcondition C_to (NUMBER|ID) C_DO
-            BEGIN
+            ((BEGIN
              (whileBlock|forBlock|repeatBlock|ifBlock|fuctionUsage|write_function|read_function|sentence)*
-            END SEMI_COLON;
-forcondition:( (ID) ASSIGN (NUMBER|ID) ) ;
+            END SEMI_COLON) | (whileDecla|forDecla|sentence) )?;
+forcondition:( (ID) ASSIGN (NUMBER|ID ) ) ;
 
 //Cycle repeat
 repeatBlock: repeatDecla+;
@@ -110,19 +137,22 @@ repeatDecla: C_REPEAT
             (whileBlock|forBlock|repeatBlock|ifBlock|fuctionUsage|write_function|read_function|sentence)*
             END
             repeatcondition;
-repeatcondition: C_UNTIL ( (ID) BOOLEANE (ID)) SEMI_COLON ;
+repeatcondition: C_UNTIL ( (ID) conditionvali (ID)) SEMI_COLON ;
 
 //Codition IF
 ifBlock: ifDecla+;
 ifDecla: C_IF ifcondition C_THEN
-            BEGIN
+            ((BEGIN
             (whileBlock|forBlock|repeatBlock|ifBlock|fuctionUsage|write_function|read_function|sentence)*
-            END SEMI_COLON;
-ifcondition:  ( (ID) BOOLEANE (ID|NUMBER|TEXT)) ;
-
+            END SEMI_COLON)|((whileBlock|forBlock|repeatBlock|ifBlock|fuctionUsage|write_function|read_function|sentence)))?
+            (C_ELSE (whileBlock|forBlock|repeatBlock|ifBlock|fuctionUsage|write_function|read_function|sentence))?
+            ;
+ifcondition:  ( (ID) conditionvali (ID|NUMBER|TEXT)) ;
+conditionvali:BOOLEANE
+| EQUAL;
 
 array_call: ID SQBRACKET_LEFT (NUMBER|ID) SQBRACKET_RIGHT;
-arraybi_call: ID SQBRACKET_LEFT (NUMBER|ID) SQBRACKET_RIGHT SQBRACKET_LEFT (NUMBER|ID) SQBRACKET_RIGHT;
+arraybi_call: ID SQBRACKET_LEFT (NUMBER|ID) COMA (NUMBER|ID) SQBRACKET_RIGHT;
 
 read_function: READ BRACKET_LEFT readId BRACKET_RIGHT SEMI_COLON;
 readId: ID#idRead
@@ -131,7 +161,7 @@ readId: ID#idRead
 
 
 write_function: WRITE BRACKET_LEFT writeId BRACKET_RIGHT SEMI_COLON;
-writeId:ID#idWrite
+writeId: ID #idWrite
         |TEXT COMA (ID|array_call|arraybi_call) #idWrite
         |array_call#arrayWrite
         |arraybi_call#arraybiWrite
@@ -163,13 +193,14 @@ CONST_STRING: 'conststr';
 ARRAY_OF: 'array of';
 
 //tokens for operations
-EQUAL: '=';
+
 
 //asignation token
 ASSIGN: ':=';
 
 //tokens general
 NUMBER:[0-9]+; //number
+TEXTCHAR : '\'' ( ~["\r\n] | '\'\'' ) '\''; //string
 TEXT: '\'' ( ~["\r\n] | '\'\'' )* '\''; //string
 COLON: ':';
 SEMI_COLON: ';';
@@ -182,8 +213,8 @@ TRUE:'true';
 FALSE:'false';
 
 //boolean expression tokens
-BOOLEANE:'>'|'<'|'<>'|'>='|'=='|'<='|'AND'|'OR'|'NOT';
-
+BOOLEANE:'>'|'<'|'<>'|'>='|'<='|'AND'|'OR'|'NOT';
+EQUAL: '=';
 //Funtions tokens
 FUNCTION: 'function';
 
@@ -200,14 +231,16 @@ C_UNTIL: 'until';
 //Condition tokens
 C_IF: 'if';
 C_THEN:'then';
+C_ELSE: 'else';
 
-ID:[a-z][a-z0-9]*([_][a-z0-9]+)*  ; //ididentifier
-WS:[ \t\n\r]+ -> skip;//skip whitespace
-COMMENT: '{' .*? '}' -> skip; //comments
 
 //math operatrors
 PLUS: '+';
 MINUS: '-';
 MULT: '*';
 DIV: '/';
-MOD: '%';
+MOD: 'mod';
+
+ID:[a-z][a-z0-9]*([_][a-z0-9]+)*  ; //ididentifier
+WS:[ \t\n\r]+ -> skip;//skip whitespace
+COMMENT: '{' .*? '}' -> skip; //comments

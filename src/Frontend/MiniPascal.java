@@ -2,12 +2,20 @@ package Frontend;
 
 import javax.swing.*;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+
+import Semantic.SemanticAnalyzer;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.*;
 
+import org.antlr.v4.runtime.*;
+import org.antlr.v4.runtime.tree.*;
 import java.awt.*;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
 import java.awt.event.ActionEvent;
@@ -27,6 +35,9 @@ public class MiniPascal extends JFrame {
     private JTextArea textArea2;
     private JScrollPane Panel2;
     private JScrollPane Panel1;
+    private JButton Archivos;
+
+    private String codigoLLVM;
 
     public MiniPascal ()
     {
@@ -42,30 +53,65 @@ public class MiniPascal extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 String texto = textArea1.getText();
                 CharStream CS = fromString(texto);
+
                 pascalLexer ps = new pascalLexer(CS);
                 CommonTokenStream token = new CommonTokenStream(ps);
+
                 pascalParser pp = new pascalParser(token);
+
                 CustomErrorListener errorListener = new CustomErrorListener();
                 pp.addErrorListener(errorListener);
                 ParseTree tree = pp.main();
 
+                SemanticAnalyzer semanticAnalyzer = new SemanticAnalyzer();
+                semanticAnalyzer.visit(tree);
 
                 List<String> errores = errorListener.getErrores();
-                if(errores.isEmpty())
+                List<String> SemanticErrors = semanticAnalyzer.getErrors();
+                List<String> TableErrors = semanticAnalyzer.getErrorsSymbolTable();
+                codigoLLVM = semanticAnalyzer.getLLVM();
+
+                if(errores.isEmpty() && SemanticErrors.isEmpty() && TableErrors.isEmpty() )
                 {
                     textArea2.setText("");
                     textArea2.setForeground(Color.blue);
                     textArea2.setText("Codigo Correcto! \n\nEste es el arbol para este codigo\n"+tree.toStringTree(pp));
-
+                    System.out.println("\n"+codigoLLVM);
+                    try {
+                        saveToFile("output.txt", textArea1.getText());
+                        System.out.println("El archivo se guardó correctamente.");
+                    } catch (IOException error) {
+                        error.printStackTrace();
+                    }
                 }else
                 {
                     textArea2.setText("");
                     textArea2.setForeground(Color.red);
                     textArea2.setText("Codigo incorrecto!\n");
-                    for (String error : errores) {
-                        System.out.println(error);
-                        textArea2.append(error+"\n");
+
+                    if(!TableErrors.isEmpty())
+                    {
+                        textArea2.append("Errores semánticos encontrados:\n");
+                        for (String error : TableErrors) {
+                            textArea2.append(error + "\n");
+                        }
                     }
+
+                    if (!errores.isEmpty()) {
+                        textArea2.append("Errores sintacticos encontrados:\n");
+                        for (String error : errores) {
+                            textArea2.append(error + "\n");
+                        }
+                    }
+
+                    if (!semanticAnalyzer.getErrors().isEmpty()) {
+                        textArea2.append("Errores semánticos encontrados:\n");
+                        for (String error : semanticAnalyzer.getErrors()) {
+                            textArea2.append(error + "\n");
+                        }
+                    }
+
+
 
                     textArea2.append("\n\nEste es el arbol para este codigo\n"+tree.toStringTree(pp));
                 }
@@ -82,6 +128,7 @@ public class MiniPascal extends JFrame {
                 textArea1.setText("");
             }
         });
+
     }
 
     public static void main(String[] args)
@@ -89,7 +136,17 @@ public class MiniPascal extends JFrame {
         new MiniPascal();
     }
 
+    public static void saveToFile(String fileName, String content) throws IOException {
+        // Crear un objeto File
+        File file = new File(fileName);
 
+        // Usar FileWriter para escribir en el archivo
+        try (FileWriter writer = new FileWriter(file)) {
+            writer.write(content);
+        }
+
+        System.out.println("Archivo creado: " + file.getAbsolutePath());
+    }
     private void createUIComponents() {
         // TODO: place custom component creation code here
     }
@@ -107,3 +164,4 @@ class CustomErrorListener extends BaseErrorListener {
         return errores;
     }
 }
+
