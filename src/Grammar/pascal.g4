@@ -36,16 +36,16 @@ typesstatemes :whileBlock
 sentence: assign | expression;
 assign: (assingId) ASSIGN (expression) SEMI_COLON ;
 expression
-    : BRACKET_LEFT expression BRACKET_RIGHT                # ParenthesizedExpression
-    | expression MULT expression                          # MultExpression
-    | expression DIV expression                           # DivExpression
-    | expression MOD expression                           # ModExpression
-    | expression PLUS expression                          # AddExpression
-    | expression MINUS expression                         # SubExpression
-    | optional_values                                     # ValuesExpression
-    | array_call                                         # ArrayCallExpression
-    | arraybi_call                                       # ArrayBiCallExpression
-    ;
+        : BRACKET_LEFT expression BRACKET_RIGHT                # ParenthesizedExpression
+        | expression (MULT | DIV | MOD) expression              # MulDivModExpression
+        | expression (PLUS | MINUS) expression                  # AddSubExpression
+        | optional_values                                      # ValuesExpression
+        | array_call                                           # ArrayCallExpression
+        | arraybi_call                                         # ArrayBiCallExpression
+        ;
+
+
+
 
 assingId:ID
     | array_call
@@ -111,24 +111,35 @@ typeParamName: INT_TYPE
        | STR_TYPE ;
 
 //function usage declaration
-fuctionUsage: ID BRACKET_LEFT ((expression)(COMA (expression))*)? BRACKET_RIGHT (SEMI_COLON)?;
+fuctionUsage: ID BRACKET_LEFT (paramsusable)? BRACKET_RIGHT (SEMI_COLON)?;
+
+paramsusable: (expression)(COMA (expression))*;
 
 //declaration of cycles
 //Cycle While
 whileBlock: whileDecla+;
 whileDecla: C_WHILE condition C_DO
             BEGIN
-            (whileBlock|forBlock|repeatBlock|ifBlock|fuctionUsage|write_function|read_function|sentence)*
+            statements
             END SEMI_COLON;
-condition: BRACKET_LEFT ( (ID|sentence) conditionvali (ID|NUMBER|sentence)) BRACKET_RIGHT;
-
+condition: BRACKET_LEFT ( ID conditionvali codition2) BRACKET_RIGHT;
+codition2: ID
+        | NUMBER
+        | sentence
+        ;
 //Cycle for
 forBlock: forDecla+;
-forDecla: C_FOR forcondition C_to (NUMBER|ID) C_DO
+forDecla: C_FOR forcondition C_to valuesfor C_DO
             ((BEGIN
-             (whileBlock|forBlock|repeatBlock|ifBlock|fuctionUsage|write_function|read_function|sentence)*
+             statements
             END SEMI_COLON) | (whileDecla|forDecla|sentence) )?;
-forcondition:( (ID) ASSIGN (NUMBER|ID ) ) ;
+forcondition: idfor ASSIGN valuesfor ;
+
+idfor: ID;
+valuesfor: NUMBER
+        |ID
+        ;
+
 
 //Cycle repeat
 repeatBlock: repeatDecla+;
@@ -143,16 +154,28 @@ repeatcondition: C_UNTIL ( (ID) conditionvali (ID)) SEMI_COLON ;
 ifBlock: ifDecla+;
 ifDecla: C_IF ifcondition C_THEN
             ((BEGIN
-            (whileBlock|forBlock|repeatBlock|ifBlock|fuctionUsage|write_function|read_function|sentence)*
-            END SEMI_COLON)|((whileBlock|forBlock|repeatBlock|ifBlock|fuctionUsage|write_function|read_function|sentence)))?
-            (C_ELSE (whileBlock|forBlock|repeatBlock|ifBlock|fuctionUsage|write_function|read_function|sentence))?
+            statements
+            END SEMI_COLON)|(typesstatemes))?
+            (C_ELSE typesstatemes)?
             ;
-ifcondition:  ( (ID) conditionvali (ID|NUMBER|TEXT)) ;
+ifcondition:  ( (ID) conditionvali cond2) ;
 conditionvali:BOOLEANE
 | EQUAL;
 
-array_call: ID SQBRACKET_LEFT (NUMBER|ID) SQBRACKET_RIGHT;
-arraybi_call: ID SQBRACKET_LEFT (NUMBER|ID) COMA (NUMBER|ID) SQBRACKET_RIGHT;
+cond2: ID
+    | NUMBER
+    | TEXT
+    ;
+
+array_call: ID SQBRACKET_LEFT arraybi1 SQBRACKET_RIGHT;
+arraybi_call: ID SQBRACKET_LEFT arraybi1 COMA arraybi2 SQBRACKET_RIGHT;
+
+arraybi1:NUMBER
+| ID;
+
+arraybi2:NUMBER
+| ID;
+
 
 read_function: READ BRACKET_LEFT readId BRACKET_RIGHT SEMI_COLON;
 readId: ID#idRead

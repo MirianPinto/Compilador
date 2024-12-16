@@ -78,7 +78,7 @@ public class MiniPascal extends JFrame {
                     textArea2.setText("Codigo Correcto! \n\nEste es el arbol para este codigo\n"+tree.toStringTree(pp));
                     System.out.println("\n"+codigoLLVM);
                     try {
-                        saveToFile("output.txt", textArea1.getText());
+                        saveToFile("LLVM.txt", codigoLLVM);
                         System.out.println("El archivo se guardó correctamente.");
                     } catch (IOException error) {
                         error.printStackTrace();

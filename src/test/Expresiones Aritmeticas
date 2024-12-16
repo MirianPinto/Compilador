@@ -1,0 +1,7 @@
+program expresiones;
+var x,y,i,j:integer;
+begin
+    x :=10;
+    y:= 5;
+
+end.

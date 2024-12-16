@@ -70,29 +70,17 @@ public interface pascalListener extends ParseTreeListener {
 	 */
 	void exitParenthesizedExpression(pascalParser.ParenthesizedExpressionContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code AddExpression}
+	 * Enter a parse tree produced by the {@code AddSubExpression}
 	 * labeled alternative in {@link pascalParser#expression}.
 	 * @param ctx the parse tree
 	 */
-	void enterAddExpression(pascalParser.AddExpressionContext ctx);
+	void enterAddSubExpression(pascalParser.AddSubExpressionContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code AddExpression}
+	 * Exit a parse tree produced by the {@code AddSubExpression}
 	 * labeled alternative in {@link pascalParser#expression}.
 	 * @param ctx the parse tree
 	 */
-	void exitAddExpression(pascalParser.AddExpressionContext ctx);
-	/**
-	 * Enter a parse tree produced by the {@code ModExpression}
-	 * labeled alternative in {@link pascalParser#expression}.
-	 * @param ctx the parse tree
-	 */
-	void enterModExpression(pascalParser.ModExpressionContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code ModExpression}
-	 * labeled alternative in {@link pascalParser#expression}.
-	 * @param ctx the parse tree
-	 */
-	void exitModExpression(pascalParser.ModExpressionContext ctx);
+	void exitAddSubExpression(pascalParser.AddSubExpressionContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code ArrayCallExpression}
 	 * labeled alternative in {@link pascalParser#expression}.
@@ -118,18 +106,6 @@ public interface pascalListener extends ParseTreeListener {
 	 */
 	void exitArrayBiCallExpression(pascalParser.ArrayBiCallExpressionContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code DivExpression}
-	 * labeled alternative in {@link pascalParser#expression}.
-	 * @param ctx the parse tree
-	 */
-	void enterDivExpression(pascalParser.DivExpressionContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code DivExpression}
-	 * labeled alternative in {@link pascalParser#expression}.
-	 * @param ctx the parse tree
-	 */
-	void exitDivExpression(pascalParser.DivExpressionContext ctx);
-	/**
 	 * Enter a parse tree produced by the {@code ValuesExpression}
 	 * labeled alternative in {@link pascalParser#expression}.
 	 * @param ctx the parse tree
@@ -142,29 +118,17 @@ public interface pascalListener extends ParseTreeListener {
 	 */
 	void exitValuesExpression(pascalParser.ValuesExpressionContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code SubExpression}
+	 * Enter a parse tree produced by the {@code MulDivModExpression}
 	 * labeled alternative in {@link pascalParser#expression}.
 	 * @param ctx the parse tree
 	 */
-	void enterSubExpression(pascalParser.SubExpressionContext ctx);
+	void enterMulDivModExpression(pascalParser.MulDivModExpressionContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code SubExpression}
+	 * Exit a parse tree produced by the {@code MulDivModExpression}
 	 * labeled alternative in {@link pascalParser#expression}.
 	 * @param ctx the parse tree
 	 */
-	void exitSubExpression(pascalParser.SubExpressionContext ctx);
-	/**
-	 * Enter a parse tree produced by the {@code MultExpression}
-	 * labeled alternative in {@link pascalParser#expression}.
-	 * @param ctx the parse tree
-	 */
-	void enterMultExpression(pascalParser.MultExpressionContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code MultExpression}
-	 * labeled alternative in {@link pascalParser#expression}.
-	 * @param ctx the parse tree
-	 */
-	void exitMultExpression(pascalParser.MultExpressionContext ctx);
+	void exitMulDivModExpression(pascalParser.MulDivModExpressionContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link pascalParser#assingId}.
 	 * @param ctx the parse tree
@@ -426,6 +390,16 @@ public interface pascalListener extends ParseTreeListener {
 	 */
 	void exitFuctionUsage(pascalParser.FuctionUsageContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link pascalParser#paramsusable}.
+	 * @param ctx the parse tree
+	 */
+	void enterParamsusable(pascalParser.ParamsusableContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link pascalParser#paramsusable}.
+	 * @param ctx the parse tree
+	 */
+	void exitParamsusable(pascalParser.ParamsusableContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link pascalParser#whileBlock}.
 	 * @param ctx the parse tree
 	 */
@@ -456,6 +430,16 @@ public interface pascalListener extends ParseTreeListener {
 	 */
 	void exitCondition(pascalParser.ConditionContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link pascalParser#codition2}.
+	 * @param ctx the parse tree
+	 */
+	void enterCodition2(pascalParser.Codition2Context ctx);
+	/**
+	 * Exit a parse tree produced by {@link pascalParser#codition2}.
+	 * @param ctx the parse tree
+	 */
+	void exitCodition2(pascalParser.Codition2Context ctx);
+	/**
 	 * Enter a parse tree produced by {@link pascalParser#forBlock}.
 	 * @param ctx the parse tree
 	 */
@@ -485,6 +469,26 @@ public interface pascalListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitForcondition(pascalParser.ForconditionContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link pascalParser#idfor}.
+	 * @param ctx the parse tree
+	 */
+	void enterIdfor(pascalParser.IdforContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link pascalParser#idfor}.
+	 * @param ctx the parse tree
+	 */
+	void exitIdfor(pascalParser.IdforContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link pascalParser#valuesfor}.
+	 * @param ctx the parse tree
+	 */
+	void enterValuesfor(pascalParser.ValuesforContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link pascalParser#valuesfor}.
+	 * @param ctx the parse tree
+	 */
+	void exitValuesfor(pascalParser.ValuesforContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link pascalParser#repeatBlock}.
 	 * @param ctx the parse tree
@@ -556,6 +560,16 @@ public interface pascalListener extends ParseTreeListener {
 	 */
 	void exitConditionvali(pascalParser.ConditionvaliContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link pascalParser#cond2}.
+	 * @param ctx the parse tree
+	 */
+	void enterCond2(pascalParser.Cond2Context ctx);
+	/**
+	 * Exit a parse tree produced by {@link pascalParser#cond2}.
+	 * @param ctx the parse tree
+	 */
+	void exitCond2(pascalParser.Cond2Context ctx);
+	/**
 	 * Enter a parse tree produced by {@link pascalParser#array_call}.
 	 * @param ctx the parse tree
 	 */
@@ -575,6 +589,26 @@ public interface pascalListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitArraybi_call(pascalParser.Arraybi_callContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link pascalParser#arraybi1}.
+	 * @param ctx the parse tree
+	 */
+	void enterArraybi1(pascalParser.Arraybi1Context ctx);
+	/**
+	 * Exit a parse tree produced by {@link pascalParser#arraybi1}.
+	 * @param ctx the parse tree
+	 */
+	void exitArraybi1(pascalParser.Arraybi1Context ctx);
+	/**
+	 * Enter a parse tree produced by {@link pascalParser#arraybi2}.
+	 * @param ctx the parse tree
+	 */
+	void enterArraybi2(pascalParser.Arraybi2Context ctx);
+	/**
+	 * Exit a parse tree produced by {@link pascalParser#arraybi2}.
+	 * @param ctx the parse tree
+	 */
+	void exitArraybi2(pascalParser.Arraybi2Context ctx);
 	/**
 	 * Enter a parse tree produced by {@link pascalParser#read_function}.
 	 * @param ctx the parse tree

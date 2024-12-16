@@ -43,4 +43,10 @@ public class SymbolTable {
     public List<String> getErrors() {
         return errors;
     }
+
+    public Map<String, Symbol> getSymbols() {
+
+
+        return symbols;
+    }
 }

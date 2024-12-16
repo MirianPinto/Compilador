@@ -48,19 +48,12 @@ public interface pascalVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitParenthesizedExpression(pascalParser.ParenthesizedExpressionContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code AddExpression}
+	 * Visit a parse tree produced by the {@code AddSubExpression}
 	 * labeled alternative in {@link pascalParser#expression}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitAddExpression(pascalParser.AddExpressionContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code ModExpression}
-	 * labeled alternative in {@link pascalParser#expression}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitModExpression(pascalParser.ModExpressionContext ctx);
+	T visitAddSubExpression(pascalParser.AddSubExpressionContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code ArrayCallExpression}
 	 * labeled alternative in {@link pascalParser#expression}.
@@ -76,13 +69,6 @@ public interface pascalVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitArrayBiCallExpression(pascalParser.ArrayBiCallExpressionContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code DivExpression}
-	 * labeled alternative in {@link pascalParser#expression}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitDivExpression(pascalParser.DivExpressionContext ctx);
-	/**
 	 * Visit a parse tree produced by the {@code ValuesExpression}
 	 * labeled alternative in {@link pascalParser#expression}.
 	 * @param ctx the parse tree
@@ -90,19 +76,12 @@ public interface pascalVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitValuesExpression(pascalParser.ValuesExpressionContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code SubExpression}
+	 * Visit a parse tree produced by the {@code MulDivModExpression}
 	 * labeled alternative in {@link pascalParser#expression}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitSubExpression(pascalParser.SubExpressionContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code MultExpression}
-	 * labeled alternative in {@link pascalParser#expression}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitMultExpression(pascalParser.MultExpressionContext ctx);
+	T visitMulDivModExpression(pascalParser.MulDivModExpressionContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link pascalParser#assingId}.
 	 * @param ctx the parse tree
@@ -260,6 +239,12 @@ public interface pascalVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitFuctionUsage(pascalParser.FuctionUsageContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link pascalParser#paramsusable}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitParamsusable(pascalParser.ParamsusableContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link pascalParser#whileBlock}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -278,6 +263,12 @@ public interface pascalVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitCondition(pascalParser.ConditionContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link pascalParser#codition2}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitCodition2(pascalParser.Codition2Context ctx);
+	/**
 	 * Visit a parse tree produced by {@link pascalParser#forBlock}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -295,6 +286,18 @@ public interface pascalVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitForcondition(pascalParser.ForconditionContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link pascalParser#idfor}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitIdfor(pascalParser.IdforContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link pascalParser#valuesfor}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitValuesfor(pascalParser.ValuesforContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link pascalParser#repeatBlock}.
 	 * @param ctx the parse tree
@@ -338,6 +341,12 @@ public interface pascalVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitConditionvali(pascalParser.ConditionvaliContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link pascalParser#cond2}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitCond2(pascalParser.Cond2Context ctx);
+	/**
 	 * Visit a parse tree produced by {@link pascalParser#array_call}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -349,6 +358,18 @@ public interface pascalVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitArraybi_call(pascalParser.Arraybi_callContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link pascalParser#arraybi1}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitArraybi1(pascalParser.Arraybi1Context ctx);
+	/**
+	 * Visit a parse tree produced by {@link pascalParser#arraybi2}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitArraybi2(pascalParser.Arraybi2Context ctx);
 	/**
 	 * Visit a parse tree produced by {@link pascalParser#read_function}.
 	 * @param ctx the parse tree
